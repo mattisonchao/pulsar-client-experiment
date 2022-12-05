@@ -1,0 +1,4 @@
+dependencies {
+    implementation platform("org.testcontainers:testcontainers-bom:1.17.5")
+    implementation('org.testcontainers:pulsar') //no version specified
+}

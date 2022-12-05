@@ -1,0 +1,34 @@
+subprojects {
+    apply plugin: 'application'
+
+    ext {
+        lombokVersion = "1.18.24"
+        log4jVerison = "2.15.0"
+        guavaVersion = "31.1-jre"
+        awaitilityVersion = "4.2.0"
+        testingVersion = "7.5"
+        testContainerVersion = "1.17.5"
+    }
+
+    dependencies {
+        implementation "com.google.guava:guava:$guavaVersion"
+        compileOnly "org.projectlombok:lombok:$lombokVersion"
+        annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+        testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+        testImplementation "org.testng:testng:$testingVersion"
+        testImplementation "org.awaitility:awaitility:$awaitilityVersion"
+        implementation "org.apache.logging.log4j:log4j-api:$log4jVerison"
+        implementation "org.apache.logging.log4j:log4j-core:$log4jVerison"
+        implementation "org.apache.logging.log4j:log4j-slf4j-impl:$log4jVerison"
+    }
+    repositories {
+        mavenCentral()
+    }
+
+
+    test {
+        useTestNG()
+    }
+
+}

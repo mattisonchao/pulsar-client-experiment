@@ -1,0 +1,4 @@
+dependencies {
+    implementation 'org.apache.pulsar:pulsar-client:2.10.2'
+    implementation project(":broker")
+}
