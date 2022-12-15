@@ -140,7 +140,6 @@ public class ClientStuckTest extends BrokerBase {
         init("apachepulsar/pulsar:2.8.3");
 
         final String tp = "client_timeout_not_stuck_with_broker_2_8_3_empty_value";
-        final  byte[] EMPTY_BYTES = new byte[100];
         @Cleanup
         PulsarClient client = PulsarClient.builder()
                 .serviceUrl(brokerURL)
@@ -168,14 +167,14 @@ public class ClientStuckTest extends BrokerBase {
         for (int i = 0; i < 10000; i++) {
             producer.newMessage()
                     .sequenceId(i)
-                    .value(EMPTY_BYTES)
+                    .value(new byte[i])
                     .send();
         }
 
         for (int i = 0; i < 10000; i++) {
             final Message<byte[]> message = consumer.receive(4000, TimeUnit.MILLISECONDS);
             consumer.acknowledge(message);
-            Assert.assertEquals(message.getValue(), EMPTY_BYTES);
+            Assert.assertEquals(message.getValue(), new byte[i]);
         }
         // verify if consumer get stuck forever.
         final Message<byte[]> message1 = consumer.receive(4000, TimeUnit.MILLISECONDS);
